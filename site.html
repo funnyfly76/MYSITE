@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MYSITE</title>
+<style>
+  body {
+    min-height: 100vh;
+    margin: 0;
+    background: linear-gradient(135deg, #ff00cc, #3333ff, #00ffcc, #ffff00, #ff6600, #ff0000, #00ff00);
+    background-size: 400% 400%;
+    animation: rainbow 20s ease infinite;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #f3f3f3;
+  }
+  @keyframes rainbow {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
+  }
+  .container {
+    max-width: 700px;
+    margin: 40px auto 40px auto;
+    background: #fff;
+    /* Windows 98 style border */
+    border: 2px solid #b5b5b5;
+    border-top: 2px solid #fff;
+    border-left: 2px solid #fff;
+    border-right: 2px solid #7d7d7d;
+    border-bottom: 2px solid #7d7d7d;
+    box-shadow: none;
+    border-radius: 0;
+    padding: 32px 28px 32px 28px;
+    position: relative;
+  }
+  .container::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    border: 1.5px solid #e0e0e0;
+    border-top: 1.5px solid #fff;
+    border-left: 1.5px solid #fff;
+    border-right: 1.5px solid #7d7d7d;
+    border-bottom: 1.5px solid #7d7d7d;
+    z-index: 2;
+  }
+  h1, h2, h3 {
+    font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+    margin-top: 0.7em;
+    margin-bottom: 0.4em;
+    font-weight: bold;
+  }
+  h1 { font-size: 24px; color: #39ff14; text-shadow: 1px 1px 0 #000, 0 0 8px #39ff14; }
+  h2 { font-size: 20px; color: #00fff7; text-shadow: 1px 1px 0 #000, 0 0 8px #00fff7; }
+  h3 { font-size: 18px; color: #ffe600; text-shadow: 1px 1px 0 #000, 0 0 8px #ffe600; }
+  .judgment-timer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 24px 0 32px 0;
+  }
+  .judgment-timer-box {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 32px;
+    color: #ff2222;
+    background: #fff;
+    border: 3px solid #ff2222;
+    border-radius: 14px;
+    box-shadow: 0 4px 18px rgba(255,0,0,0.18), 0 1.5px 0 #ff2222;
+    padding: 18px 36px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-align: center;
+    transition: opacity 0.2s;
+    opacity: 1;
+    animation: blink-timer 1s infinite alternate;
+  }
+  @keyframes blink-timer {
+    0% { opacity: 0.7; }
+    100% { opacity: 1; }
+  }
+  .site-header {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 32px;
+    margin-top: -24px;
+  }
+  .site-header-title {
+    font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+    font-size: 32px;
+    color: #ffe600;
+    text-shadow: 2px 2px 0 #000, 0 0 12px #ffe600;
+    margin: 0;
+    padding: 18px 0 10px 0;
+    letter-spacing: 2px;
+  }
+  .visitor-2000s {
+    display: block;
+    margin: 0 auto 10px auto;
+    font-family: Impact, 'Arial Black', 'Comic Sans MS', cursive, sans-serif;
+    font-size: 28px;
+    color: #00aaff;
+    text-align: center;
+    letter-spacing: 2px;
+    text-shadow:
+      0 2px 0 #fff,
+      0 0 8px #fff,
+      2px 2px 0 #000,
+      0 0 12px #00aaff;
+    padding: 2px 0 8px 0;
+    width: 100%;
+  }
+  p, li, label, input, textarea, span, b, i {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 14px;
+    color: #222;
+  }
+  ul {
+    color: #222;
+  }
+  footer {
+    margin-top: 32px;
+    text-align: center;
+    color: #fff;
+    font-size: 13px;
+    text-shadow: 1px 1px 2px #000;
+  }
+  /* Стили для формы */
+  form {
+    background: #f7f7f7;
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  input, textarea {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 6px;
+    margin: 4px 0 10px 0;
+    width: 100%;
+    font-size: 14px;
+  }
+  button {
+    background: linear-gradient(90deg, #39ff14, #00fff7, #ffe600);
+    color: #000;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 18px;
+    font-family: 'Comic Sans MS', cursive;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: background 0.3s;
+  }
+  button:hover {
+    background: linear-gradient(90deg, #ffe600, #00fff7, #39ff14);
+  }
+  .section {
+    margin-bottom: 32px;
+    padding: 16px;
+    border-radius: 8px;
+    background: #f9f9f9;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  .section-title {
+    font-size: 22px;
+    color: #333;
+    margin-bottom: 12px;
+    position: relative;
+  }
+  .section-title:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background: linear-gradient(90deg, #39ff14, #00fff7, #ffe600);
+  }
+  .section-title-blue {
+    color: #007bff;
+  }
+  .section-title-yellow {
+    color: #ffc107;
+  }
+  .section-title-pink {
+    color: #e83e8c;
+  }
+  .guestbook-list {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  .guestbook-message {
+    margin-bottom: 16px;
+    padding: 12px;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  .guestbook-username {
+    font-weight: bold;
+    color: #007bff;
+  }
+  .guestbook-date {
+    font-size: 12px;
+    color: #888;
+  }
+  .guestbook-text {
+    display: block;
+    margin-top: 4px;
+    color: #333;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="site-header">
+    <h1 class="site-header-title">Welcome to my site!</h1>
+    <div class="visitor-2000s">Visitor №1</div>
+  </div>
+<hr>
+<div class="judgment-timer">
+  <div class="judgment-timer-box" id="judgment-timer-box">
+    До Судного дня осталось: <span id="judgment-timer-value">17 дней</span>
+  </div>
+</div>
+<hr>
+<script>
+function updateJudgmentTimer() {
+  // Установите дату Судного дня (15 августа текущего года)
+  const now = new Date();
+  let year = now.getFullYear();
+  // Если уже после 15 августа — считать до следующего года
+  if (now > new Date(year, 7, 15, 0, 0, 0)) year++;
+  const target = new Date(year, 7, 15, 0, 0, 0); // Месяцы с 0, август = 7
+
+  const diff = target - now;
+  if (diff <= 0) {
+    document.getElementById('judgment-timer-value').textContent = "00:00:00:00";
+    return;
+  }
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const minutes = Math.floor((diff / (1000 * 60)) % 60);
+  const seconds = Math.floor((diff / 1000) % 60);
+
+  document.getElementById('judgment-timer-value').textContent =
+    `${days}d ${hours.toString().padStart(2,'0')}h ${minutes.toString().padStart(2,'0')}m ${seconds.toString().padStart(2,'0')}s`;
+}
+setInterval(updateJudgmentTimer, 1000);
+updateJudgmentTimer();
+</script>
+<div class="section">
+  <h1 class="section-title">About me:</h1>
+  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUpE7TRhbJVX2cmymIPh3ZFnb-TzfCL0cKEw&s" alt="My photo" style="width:200px;height:200px;">
+  <p>Hi! My name is Matrix99. I love programming and web! Using TempleOS and HolyC!</p>
+  <p>I am learned basic HTML andCSS in 1-2 days. I am not a professional web developer, but already fucked your mom.</p>
+</div>
+
+<div class="section">
+  <h1 class="section-title-blue">My interests:</h1>
+  <ul>
+    <li>Programming</li>
+    <li>Web Development</li>
+    <li>Self-knowledge</li>
+    <li>Art</li>
+    <li>Music</li>
+  </ul>
+</div>
+
+<div class="section">
+  <h1 class="section-title-yellow">My music</h1>
+  <h2 id="now-playing">Now playing: Aphex Twin - Drone Break</h2>
+  <audio id="audio-player" controls>
+    <source src="https://ia801404.us.archive.org/2/items/AphexTwin_20150417/Surfing%20On%20Soundcloud%20Waves/Drone%20Break.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+  <script>
+  const playlist = [
+    { title: "Dron Break - Aphex Twin", src: "https://ia801404.us.archive.org/2/items/AphexTwin_20150417/Surfing%20On%20Soundcloud%20Waves/Drone%20Break.mp3" },
+    // Добавьте только рабочие треки!
+  ];
+  let current = 0;
+  const audio = document.getElementById('audio-player');
+  const nowPlaying = document.getElementById('now-playing');
+  audio.volume = 0.1; // Установите громкость на 10%
+
+  audio.addEventListener('ended', () => {
+    current = (current + 1) % playlist.length;
+    audio.src = playlist[current].src;
+    nowPlaying.textContent = "Now playing: " + playlist[current].title;
+  });
+  </script>
+  <h1 class="section-title-pink">My favorite tracks:</h1>
+  <ul>
+    <li>Daft Punk - Harder, Better, Faster, Stronger</li>
+    <li>The Prodigy - Firestarter</li>
+    <li>Daft Punk - One more time</li>
+    <li>Modjo - Lady (Hear Me Tonight)</li>
+    <li>Kanye West - Stronger</li>
+  </ul>
+</div>
+
+<div class="section">
+  <h1 class="section-title-blue">My projects:</h1>
+  <ul>   
+    <li>/*<a href="site">My Site</a>*/</li>
+    <li>That's all</li>
+  </ul>
+</div>
+
+<div class="section">
+  <h1 class="section-title-yellow">Visitors book:</h1>
+  <form
+    action="https://formspree.io/f/mblkyqvv"
+    method="POST"
+  >
+    <label>
+      Your email:
+      <input type="email" name="email">
+    </label>
+    <label>
+      Your message:
+      <textarea name="message"></textarea>
+    </label>
+    <!-- your other form fields go here -->
+    <button type="submit">Send</button>
+  </form>
+  <h1 class="section-title-pink">Last Messages:</h1>
+  <ul class="guestbook-list">
+    <li class="guestbook-message">
+      <span class="guestbook-username">xXDarkAngelXx</span> <span class="guestbook-date">(July 29, 2024 11:47 PM)</span><br>
+      <span class="guestbook-text">"3 days left... dad still doesn't know i took his keys. gonna be weird not seeing him after this but oh well"</span>
+    </li>
+    <li class="guestbook-message">
+      <span class="guestbook-username">StArGiRl</span> <span class="guestbook-date">(July 29, 2024 6:32 PM)</span><br>
+      <span class="guestbook-text">"been having those dreams again. the red sky one. guess it doesn't matter now since we're so close hehe"</span>
+    </li>
+    <li class="guestbook-message">
+      <span class="guestbook-username">HackerBoy2007</span> <span class="guestbook-date">(July 29, 2024 3:19 PM)</span><br>
+      <span class="guestbook-text">"deleted all my social media today. won't need it anymore lol. mom cried when she saw but she'll understand eventually"</span>
+    </li>
+    <li class="guestbook-message">
+      <span class="guestbook-username">cosmic_amy</span> <span class="guestbook-date">(July 29, 2024 12:05 PM)</span><br>
+      <span class="guestbook-text">"gave away my cat to the neighbors. told them to take good care of her. she won't recognize me after anyway"</span>
+    </li>
+    <li class="guestbook-message">
+      <span class="guestbook-username">ProGamer1337</span> <span class="guestbook-date">(Aug 1, 2024 10:14 PM)</span><br>
+      <span class="guestbook-text">"sold my gaming setup yesterday. felt wrong but money won't matter in 4 days. none of this will matter"</span>
+    </li>
+    <li class="guestbook-message">
+      <span class="guestbook-username">sunny</span> <span class="guestbook-date">(Aug 1, 2024 7:33 PM)</span><br>
+      <span class="guestbook-text">"little brother keeps asking why im being so nice to him lately. if only he knew what we know..."</span>
+    </li>
+    <li class="guestbook-message">
+      <span class="guestbook-username">jake_codes</span> <span class="guestbook-date">(Aug 2, 2024 4:48 PM)</span><br>
+      <span class="guestbook-text">"cleared my hard drive. kept only the important files. the ones we'll need. you know which ones"</span>
+    </li>
+    <li class="guestbook-message">
+      <span class="guestbook-username">angelface</span> <span class="guestbook-date">(Aug 2, 2024 11:27 AM)</span><br>
+      <span class="guestbook-text">"wrote letters to everyone. sealed them up. they'll find them when... well, you know. feels peaceful actually"</span>
+    </li>
+    <li class="guestbook-message">
+      <span class="guestbook-username">midnight_mike</span> <span class="guestbook-date">(Aug 3, 2024 11:59 PM)</span><br>
+      <span class="guestbook-text">"haven't slept in 2 days. don't think any of us have. too excited. too ready. the waiting is killing me"</span>
+    </li>
+    <li class="guestbook-message">
+      <span class="guestbook-username">retro_kid</span> <span class="guestbook-date">(Aug 3, 2024 8:15 PM)</span><br>
+      <span class="guestbook-text">"funny how normal everyone else is acting. going to work, making plans for next week. they have no idea whats coming"</span>
+    </li>
+  </ul>
+</div>
+
+<div class="section">
+  <h1 class="section-title-blue">Statistic:</h1>
+  <ul style="font-family: 'Courier New', Courier, monospace; font-size: 18px; list-style-type: none; padding-left: 0;">
+    <li><b>Total visits:</b> <span style="color:green;">00123</span></li>
+    <li><b>Unique visitors:</b> <span style="color:blue;">00056</span></li>
+    <li><b>Online now:</b> <span style="color:red;">00001</span></li>
+  </ul>
+  <!-- Олдскульный счетчик -->
+  <!-- Олдскульный счетчик заменён на таймер -->
+  <div style="font-family: 'Courier New', Courier, monospace; font-size: 18px;">
+    <b>Time on website:</b> <span id="timer" style="color:purple;">0 seconds</span>
+  </div>
+  <script>
+  let seconds = 0;
+  setInterval(() => {
+    seconds++;
+    document.getElementById('timer').textContent = seconds + ' seconds';
+  }, 1000);
+  </script>
+</div>
+
+<footer>
+    &copy; 2025 Matrix99. All rights non reserved. If you want to contact me, you can write to my telegram:  @Matrix99
+</footer>
+
+</div>
+</body>
+</html>
